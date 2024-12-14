@@ -1,0 +1,11 @@
+.page {
+  background-color: #1e1e1e;
+  min-height: 100vh;
+}
+
+.page__section {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}

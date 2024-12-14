@@ -31,6 +31,7 @@ const initialCards = [
 
 const profileGoButton = document.querySelector(".profile__go-btn");
 const profileSection = document.querySelector(".profile");
+const pageSection = document.querySelector(".page");
 
 // const profileEditButton = document.querySelector(".profile__edit-btn");
 // const addPostButton = document.querySelector(".profile__add-btn");
@@ -55,7 +56,7 @@ const profileSection = document.querySelector(".profile");
 // const addModalFormCaption = addModalForm.querySelector("#add-card-name-input");
 // const modalImage = document.querySelector(".modal__image");
 // const modalFooterCaption = document.querySelector(".modal__image-footer-title");
-
+const cards = document.querySelector(".cards");
 const cardContentContainer = document.querySelector(".cards__pics");
 
 const cardHeartButton = cardContentContainer.querySelector(
@@ -125,17 +126,17 @@ function getCardElement(data) {
   cardImage.src = data.link;
   cardImage.alt = data.name;
 
-  const cardHeartBtn = cardElement.querySelector(".card__footer-heart-btn");
+  // const cardHeartBtn = cardElement.querySelector(".card__footer-heart-btn");
 
-  cardHeartBtn.addEventListener("click", () => {
-    handleLikeButton(cardHeartBtn);
-  });
+  // cardHeartBtn.addEventListener("click", () => {
+  //   handleLikeButton(cardHeartBtn);
+  // });
 
-  const cardTrashButton = cardElement.querySelector(".card__trash-btn");
+  // const cardTrashButton = cardElement.querySelector(".card__trash-btn");
 
-  cardTrashButton.addEventListener("click", () => {
-    handleDeleteButton(cardElement);
-  });
+  // cardTrashButton.addEventListener("click", () => {
+  //   handleDeleteButton(cardElement);
+  // });
 
   cardImage.addEventListener("click", () => {
     openImageModal(cardElement);
@@ -205,7 +206,10 @@ function handleLikeButton(cardEl) {
 // };
 
 profileGoButton.addEventListener("click", () => {
-  profileSection.style.visibility = "hidden";
+  profileSection.style = "display: none";
+  pageSection.style = "background-color: #EAE7E5";
+
+  cards.style.visibility = "visible";
 });
 
 // profileForm.addEventListener("submit", handleProfileFormSubmit);

@@ -1,5 +1,5 @@
 .cards {
-  padding-top: 20px;
+  padding-top: 10px;
   visibility: hidden;
 }
 .cards__pics {
@@ -15,6 +15,27 @@
   box-sizing: border-box;
   margin: 0;
   justify-content: center;
+}
+
+.cards__header {
+  display: flex;
+  color: black;
+  font-size: 32px;
+  margin-top: 41px;
+  margin-bottom: 68px;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cards__back-btn {
+  background-image: url("../images/");
+}
+.cards__nexthotel-btn {
+  background-image: url("../images/");
+}
+.cards__exit-btn {
+  background-image: url("../images/");
 }
 
 @media screen and (max-width: 413px) {

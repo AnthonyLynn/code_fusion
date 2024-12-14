@@ -1,18 +1,39 @@
+const pageNames = ["home", "bar"];
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const generateHtmlPlugin = (page) => {
+  return new HtmlWebpackPlugin({
+    inject: true,
+    title: page,
+    filename: `${page}.html`,
+    template: `./src/pages/${page}/index.html`,
+    chunks: [page],
+    //favicon: "./src/images/favicon.ico",
+  });
+};
+
+const htmlPlugins = pageNames.map(generateHtmlPlugin);
+const entrys = pageNames.reduce((config, page) => {
+  config[page] = `./src/scripts/${page}.js`;
+  return config;
+}, {});
+
 module.exports = {
-  entry: {
-    main: "./src/scripts/index.js",
-  },
+  entry: entrys,
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    filename: "[name].js",
     publicPath: "",
   },
-
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
   mode: "development",
   devtool: "inline-source-map",
   stats: "errors-only",
@@ -51,12 +72,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      favicon: "./src/images/favicon.ico",
-    }),
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin(),
-  ],
+  plugins: [new CleanWebpackPlugin(), new MiniCssExtractPlugin()].concat(
+    htmlPlugins
+  ),
 };

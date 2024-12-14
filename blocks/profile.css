@@ -7,6 +7,7 @@
   border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
   width: 100%;
   box-sizing: border-box;
+  visibility: visible;
 }
 
 .profile__avatar {
@@ -55,27 +56,6 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.profile__add-btn {
-  margin-top: auto;
-  margin-left: auto;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 16px;
-  color: #fcf5e5;
-  background: #212121;
-  border-radius: 8px;
-  height: 52px;
-  width: 149px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 9.11px;
-  transition: opacity 0.3s ease;
-  border: none;
-  visibility: hidden;
 }
 
 .profile__go-btn {

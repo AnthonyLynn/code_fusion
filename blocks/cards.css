@@ -1,6 +1,7 @@
 .cards {
   padding-top: 10px;
-  visibility: hidden;
+  text-align: center;
+  display: none;
 }
 .cards__pics {
   list-style-type: none;
@@ -28,14 +29,37 @@
   height: 100%;
 }
 
-.cards__back-btn {
-  background-image: url("../images/");
-}
-.cards__nexthotel-btn {
-  background-image: url("../images/");
-}
+.cards__back-btn,
+.cards__nexthotel-btn,
 .cards__exit-btn {
-  background-image: url("../images/");
+  background-color: #eae7e5;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cards__back-btn {
+  background-image: url("../images/BackButton.svg");
+  height: 117px;
+  width: 84px;
+}
+
+.cards__nexthotel-btn {
+  background-image: url("../images/SelectHotel-btn.svg");
+  height: 150px;
+  width: 136px;
+}
+
+.cards__exit-btn {
+  background-image: url("../images/Exit-btn.svg");
+  height: 117px;
+  width: 84px;
 }
 
 @media screen and (max-width: 413px) {

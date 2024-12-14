@@ -57,24 +57,6 @@
   overflow: hidden;
 }
 
-.profile__edit-btn {
-  margin-top: 18px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1;
-  background-color: transparent;
-  display: inline-flex;
-  border-style: none;
-  gap: 9.11px;
-  width: 107.34px;
-  height: 16px;
-  text-wrap: nowrap;
-  align-items: center;
-  color: #212121;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
 .profile__add-btn {
   margin-top: auto;
   margin-left: auto;
@@ -107,6 +89,7 @@
   transition: opacity 0.3s ease;
   border: none;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .profile__edit-btn::before {

@@ -7,7 +7,7 @@
   list-style-type: none;
   padding: 0px 0 40px;
   display: grid;
-  border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
+
   grid-gap: 40px 20px;
   grid-template-columns: repeat(auto-fit, 413px);
   grid-template-rows: auto;
@@ -24,14 +24,17 @@
   font-size: 64px;
   margin-top: 41px;
   margin-bottom: 68px;
+  padding: 0;
   justify-content: center;
   width: 100%;
   height: 100%;
 }
 
 .cards__back-btn,
+.cards__selecthotel-btn,
 .cards__nexthotel-btn,
-.cards__exit-btn {
+.cards__exit-btn,
+.cards__info-btn {
   background-color: #eae7e5;
   background-repeat: no-repeat;
   background-position: center;
@@ -42,8 +45,13 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin: 0 0 32px;
 }
-
+.cards__selecthotel-btn {
+  background-image: url("../images/guide_sleigh-btn.svg");
+  height: 174px;
+  width: 136px;
+}
 .cards__back-btn {
   background-image: url("../images/BackButton.svg");
   height: 117px;
@@ -60,6 +68,12 @@
   background-image: url("../images/Exit-btn.svg");
   height: 117px;
   width: 84px;
+}
+
+.cards__info-btn {
+  background-image: url("../images/InfoButton.svg");
+  height: 150px;
+  width: 120px;
 }
 
 @media screen and (max-width: 413px) {

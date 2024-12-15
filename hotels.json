@@ -1,0 +1,40 @@
+{
+  "Hotels": [
+    {
+      "name": "Arthouse Hotel NYC",
+      "short": "Arthouse",
+      "description": "Arthouse Hotel New York City has brought hip, vintage charm and boutique style to the posh Upper West Side of Manhattan. Marrying comfort with cutting-edge design, sophisticated style and whimsical fun, Arthouse Hotel New York City is your perfect pied-a-terre in Manhattan whether work or play brings you to town.",
+      "address": "2178 Broadway, New York, NY, 10024",
+      "latitude": 40.78225322430293,
+      "longitude": -73.98027072698984,
+      "image": "https://image-tc.galaxy.tf/wijpeg-1nbmvmxtb567j7l9kezaltcs5/hotel-full-exterior.jpg?width=1000"
+    },
+    {
+      "name": "Hotel Indigo LES",
+      "short": "Indigo",
+      "description": "Whether you’re snapping photos of our spectacular Manhattan skyline views or kicking back with a crafted cocktail at our rooftop bar our urban oasis is the perfect place to start your New York City journey. We’re steps away from the best local bars, street installations, and attractions.",
+      "address": "171 Ludlow St, New York, NY 10002",
+      "latitude": 40.72192329652393,
+      "longitude": -73.98774901349493,
+      "image": "https://digital.ihg.com/is/image/ihg/hotel-indigo-new-york-4267053428-2x1?wid=1100"
+    },
+    {
+      "name": "The High Line Hotel",
+      "short": "Highline",
+      "description": "Nestled in the heart of Chelsea’s buzzing gallery district, The High Line Hotel is a completely unique and inspiring respite from the harried pace of downtown Manhattan. Gothic moldings and accent details have been maintained, though history does not hamper the hotel’s modern amenities and systems.",
+      "address": "180 10th Ave, New York, NY 10011",
+      "latitude": 40.74610496722116,
+      "longitude": -74.00497684578993,
+      "image": "https://thehighlinehotel.com/wp-content/uploads/2013/05/HH_Slider_0000_19.jpg"
+    },
+    {
+      "name": "Virgin Hotels NYC",
+      "short": "Virgin",
+      "description": "Discover the best bed in all five boroughs in our one-of-a-kind chambers and suites, packed full of everything you need for the ultimate city retreat, and then some. Want to add some play to your stay? Head up to Everdene and enjoy mouth-watering food with foot-tapping tunes and breathtaking views.",
+      "address": "1227 Broadway, New York, NY 10001",
+      "latitude": 40.746756671625576,
+      "longitude": -73.9887963644178,
+      "image": "https://newyorkyimby.com/wp-content/uploads/2022/12/55A40788-scaled.jpg"
+    }
+  ]
+}

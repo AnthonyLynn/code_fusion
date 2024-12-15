@@ -12,9 +12,11 @@ import {
   infoAppButton,
   footerSection,
   cardsSection,
-  cardContentContainer
+  cardContentContainer,
+  mapElement,
+  mapId,
 } from "../utils/constants.js";
-
+import GoogleMap from "../utils/googleMap.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 function getCardElement(data) {
@@ -73,6 +75,7 @@ function barsPage() {
   pageSection.style = "background-color: #EAE7E5";
   const barCards = displayCards(initialCards);
   cardsSection.style.display = "block";
+  mapElement.style.display = "none";
 }
 
 function hotelPage() {
@@ -82,6 +85,7 @@ function hotelPage() {
   nextHotelButton.style = "display: none";
   selectHotelButton.style.display = "";
   infoAppButton.style = "display: none";
+  mapElement.style.display = "none";
   displayCards(hotelCards);
 }
 function mapPage() {
@@ -91,12 +95,14 @@ function mapPage() {
   selectHotelButton.style = "display: none";
   nextHotelButton.style = "display: none";
   infoAppButton.style.display = "";
+  mapElement.style.display = "";
 }
 
 function homeStart() {
   profileSection.style.display = "";
   pageSection.style = "background-color: #1e1e1e";
   cardsSection.style.display = "none";
+  mapElement.style.display = "none";
 }
 
 profileGoButton.addEventListener("click", () => {
@@ -135,3 +141,32 @@ window.addEventListener("popstate", (event) => {
     homeStart();
   }
 });
+
+async function initMap() {
+  const map = new GoogleMap(mapId);
+  map.load(mapElement);
+  const pinOne = map.createPin(2, "#EA4335", "#EA4335", "1");
+  map.addMarker(
+    { lat: 39.00507919540697, lng: -77.37462108939121 },
+    "Test",
+    pinOne
+  );
+  const pinTwo = map.createPin(2, "#EA4335", "#EA4335", "2");
+  map.addMarker(
+    { lat: 39.03521359683118, lng: -77.46924041091553 },
+    "Test",
+    pinTwo
+  );
+  const pinThree = map.createPin(2, "#EA4335", "#EA4335", "3");
+  map.addMarker(
+    { lat: 39.11396980323522, lng: -77.52863987934046 },
+    "Test",
+    pinThree
+  );
+  map.displayRoute();
+  document.addEventListener("mousedown", (evt) => {
+    map.focusViewOnMarkers();
+  });
+}
+
+window.addEventListener("load", initMap);

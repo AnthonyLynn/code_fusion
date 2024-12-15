@@ -59,6 +59,7 @@ export const hotelCards = [
   //   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg"
   // }
 ];
+export const selectedCardList = [];
 
 export const cardsHeader = document.querySelector(".cards__header");
 export const profileGoButton = document.querySelector(".profile__go-btn");
@@ -76,3 +77,4 @@ export const footerSection = document.querySelector(".footer");
 
 export const cardsSection = document.querySelector(".cards");
 export const cardContentContainer = document.querySelector(".cards__pics");
+export const cardId = cardsSection.querySelector("#id");

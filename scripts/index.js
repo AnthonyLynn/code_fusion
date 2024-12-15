@@ -1,6 +1,7 @@
 import {
   initialCards,
   hotelCards,
+  selectedCardList,
   cardsHeader,
   profileGoButton,
   profileSection,
@@ -12,51 +13,83 @@ import {
   infoAppButton,
   footerSection,
   cardsSection,
-  cardContentContainer
+  cardContentContainer,
+  cardId
 } from "../utils/constants.js";
 
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
-function getCardElement(data) {
+function getCardElement(data, cardType) {
   const cardElement = document
     .querySelector("#card")
     .content.querySelector(".card")
     .cloneNode(true);
 
-  cardElement.querySelector(".card__footer-title").textContent = data.name;
+  // cardElement.querySelector(".card__footer-title").textContent = data.name;
 
   const cardImage = cardElement.querySelector(".card__image");
 
   cardImage.src = data.link;
   cardImage.alt = data.name;
-
-  const id = uuidv4();
-
-  // const cardHeartBtn = cardElement.querySelector(".card__footer-heart-btn");
-
-  // cardHeartBtn.addEventListener("click", () => {
-  //   handleLikeButton(cardHeartBtn);
-  // });
-
-  // const cardTrashButton = cardElement.querySelector(".card__trash-btn");
-
-  // cardTrashButton.addEventListener("click", () => {
-  //   handleDeleteButton(cardElement);
-  // });
-
-  cardImage.addEventListener("click", () => {
-    // openImageModal(cardElement);
-  });
+  cardElement.setAttribute("data-card-type", cardType);
 
   return cardElement;
 }
-function handleLikeButton(cardEl) {
-  cardEl.classList.toggle("card__footer-heart-btn-liked");
+
+function getSelectedCards(cardsSection) {
+  cardsSection.addEventListener("click", (event) => {
+    const card = event.target.closest(".card");
+
+    if (card) {
+      const cardType = card.getAttribute("data-card-type");
+      const dataId = uuidv4();
+      const cardData = {
+        id: dataId,
+        card_Type: cardType
+        // name: card.querySelector(".card__footer-title").textContent
+      };
+      if (cardType === "hotels") {
+        document.querySelectorAll(".card--selected").forEach((selectedCard) => {
+          selectedCard.classList.remove("card--selected");
+          selectedCard.classList.remove("card--disabled");
+        });
+        if (!card.classList.contains("card--selected")) {
+          card.classList.add("card--selected");
+          card.classList.add("card--disabled");
+          const hotelIndex = selectedCardList.findIndex(
+            (item) => item.card_Type === "hotels"
+          );
+          if (hotelIndex !== -1) {
+            selectedCardList.splice(hotelIndex, 1);
+          }
+
+          selectedCardList.push(cardData);
+        }
+      } else if (cardType === "bars") {
+        if (card.classList.toggle("card--selected")) {
+          card.classList.add("card--disabled");
+          selectedCardList.push(cardData);
+        } else {
+          const index = selectedCardList.findIndex(
+            (item) => item.id === dataId
+          );
+          if (index !== -1) {
+            selectedCardList.splice(index, 1);
+            card.classList.remove("card--disabled");
+          }
+        }
+      }
+
+      console.log("Selected Cards:", selectedCardList);
+
+      console.log(`Card selected: ${dataId}`);
+    }
+  });
 }
 
-function displayCards(cardData) {
+function displayCards(cardData, cardType) {
   cardData.forEach((item) => {
-    cardContentContainer.append(getCardElement(item));
+    cardContentContainer.append(getCardElement(item, cardType));
   });
 }
 
@@ -71,7 +104,8 @@ function barsPage() {
   profileSection.style = "display: none";
   footerSection.style = "display: none";
   pageSection.style = "background-color: #EAE7E5";
-  const barCards = displayCards(initialCards);
+  const cardType = "bars";
+  displayCards(initialCards, cardType);
   cardsSection.style.display = "block";
 }
 
@@ -82,7 +116,8 @@ function hotelPage() {
   nextHotelButton.style = "display: none";
   selectHotelButton.style.display = "";
   infoAppButton.style = "display: none";
-  displayCards(hotelCards);
+  const cardType = "hotel";
+  displayCards(hotelCards, cardType);
 }
 function mapPage() {
   cardsHeader.textContent = "Your Bar Hoppin Route";
@@ -97,6 +132,7 @@ function homeStart() {
   profileSection.style.display = "";
   pageSection.style = "background-color: #1e1e1e";
   cardsSection.style.display = "none";
+  selectedCardList = [];
 }
 
 profileGoButton.addEventListener("click", () => {
@@ -135,3 +171,4 @@ window.addEventListener("popstate", (event) => {
     homeStart();
   }
 });
+getSelectedCards(cardsSection);

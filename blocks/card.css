@@ -20,10 +20,19 @@
   object-fit: cover;
   height: 413px;
   display: block;
-  opacity: 30%;
 }
 
-.card__trash-btn {
+.card--selected {
+  border: 2px solid #eea32b;
+  opacity: 1;
+}
+.card--disabled {
+  opacity: 1;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* .card__trash-btn {
   margin: 0;
   padding: 0;
   position: absolute;
@@ -32,11 +41,11 @@
   height: 32px;
   top: 10px;
   right: 10px;
-}
+} */
 
-.card__trash-btn:hover {
+/* .card__trash-btn:hover {
   background-image: url(../images/trash-can-hover.svg);
-}
+} */
 
 .card__footer {
   margin: 0;
@@ -73,7 +82,7 @@
   white-space: nowrap;
   max-width: 352px;
 }
-.card__footer-heart-btn {
+/* .card__footer-heart-btn {
   margin: 0;
   padding: 0;
   background-image: url(../images/heart.svg);
@@ -84,14 +93,14 @@
   height: 20px;
   opacity: 40%;
   transition: opacity 0.3s ease;
-}
+} */
 
-.card__footer-heart-btn:hover {
+/* .card__footer-heart-btn:hover {
   cursor: pointer;
   opacity: 1;
-}
+} */
 
-.card__footer-heart-btn-liked {
+/* .card__footer-heart-btn-liked {
   margin: 0;
   padding: 0;
   background-image: url(../images/heart-liked.svg);
@@ -103,12 +112,12 @@
   border: 1px;
   opacity: 1;
   transition: opacity 0.3s ease;
-}
+} */
 
-.card__footer-heart-btn-liked:hover {
+/* .card__footer-heart-btn-liked:hover {
   cursor: pointer;
   opacity: 0.5;
-}
+} */
 
 @media screen and (max-width: 627px) {
   .card {

@@ -25,8 +25,6 @@ function getCardElement(data, cardType) {
     .content.querySelector(".card")
     .cloneNode(true);
 
-  // cardElement.querySelector(".card__footer-title").textContent = data.name;
-
   const cardImage = cardElement.querySelector(".card__image");
 
   cardImage.src = data.link;
@@ -46,9 +44,8 @@ function getSelectedCards(cardsSection) {
       const cardData = {
         id: dataId,
         card_Type: cardType
-        // name: card.querySelector(".card__footer-title").textContent
       };
-      if (cardType === "hotels") {
+      if (cardType === "hotel") {
         document.querySelectorAll(".card--selected").forEach((selectedCard) => {
           selectedCard.classList.remove("card--selected");
           selectedCard.classList.remove("card--disabled");
@@ -132,7 +129,6 @@ function homeStart() {
   profileSection.style.display = "";
   pageSection.style = "background-color: #1e1e1e";
   cardsSection.style.display = "none";
-  selectedCardList = [];
 }
 
 profileGoButton.addEventListener("click", () => {

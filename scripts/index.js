@@ -170,7 +170,7 @@ function displayCards(cardData) {
   });
 }
 
-profileGoButton.addEventListener("click", () => {
+function homeStart() {
   cardsHeader.textContent = "Select Bars";
   selectHotelButton.style = "display: none";
   infoAppButton.style = "display: none";
@@ -182,6 +182,23 @@ profileGoButton.addEventListener("click", () => {
   pageSection.style = "background-color: #EAE7E5";
   const barCards = displayCards(initialCards);
   cardsSection.style.display = "block";
+}
+
+function hotelPage() {
+  cardsHeader.textContent = "Select Hotels";
+  cardContentContainer.innerHTML = "";
+  nextHotelButton.style = "display: none";
+  selectHotelButton.style.display = "";
+  displayCards(hotelCards);
+}
+function mapPage() {
+  cardsHeader.textContent = "Your Bar Hoppin Route";
+  cardContentContainer.innerHTML = "";
+  selectHotelButton.style = "display: none";
+  infoAppButton.style.display = "";
+}
+profileGoButton.addEventListener("click", () => {
+  homeStart();
   history.pushState({ view: "bars" }, "Select Bars", "?view=bars");
 });
 
@@ -193,19 +210,12 @@ exitAppButton.addEventListener("click", () => {
 });
 
 nextHotelButton.addEventListener("click", () => {
-  cardsHeader.textContent = "Select Hotels";
-  cardContentContainer.innerHTML = "";
-  nextHotelButton.style = "display: none";
-  selectHotelButton.style.display = "";
-  displayCards(hotelCards);
+  hotelPage();
   history.pushState({ view: "hotels" }, "Select Hotels", "?view=hotels");
 });
 
 selectHotelButton.addEventListener("click", () => {
-  cardsHeader.textContent = "Your Bar Hoppin Route";
-  cardContentContainer.innerHTML = "";
-  selectHotelButton.style = "display: none";
-  infoAppButton.style.display = "";
+  mapPage();
   history.pushState({ view: "map" }, "Your Route Map", "?view=map");
 });
 

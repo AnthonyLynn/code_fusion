@@ -170,7 +170,7 @@ function displayCards(cardData) {
   });
 }
 
-function homeStart() {
+function barsPage() {
   cardsHeader.textContent = "Select Bars";
   selectHotelButton.style = "display: none";
   infoAppButton.style = "display: none";
@@ -198,7 +198,7 @@ function mapPage() {
   infoAppButton.style.display = "";
 }
 profileGoButton.addEventListener("click", () => {
-  homeStart();
+  barsPage();
   history.pushState({ view: "bars" }, "Select Bars", "?view=bars");
 });
 
@@ -222,17 +222,11 @@ selectHotelButton.addEventListener("click", () => {
 window.addEventListener("popstate", (event) => {
   if (event.state) {
     if (event.state.view === "bars") {
-      cardsHeader.textContent = "Select Bars";
-      cardContentContainer.innerHTML = "";
-      displayCards(initialCards);
+      barsPage();
     } else if (event.state.view === "hotels") {
-      cardsHeader.textContent = "Select Hotels";
-      cardContentContainer.innerHTML = "";
-      displayCards(hotelCards);
+      hotelPage();
     } else if (event.state.view === "map") {
-      cardsHeader.textContent = "Your Bar Hoppin Route";
-      cardContentContainer.innerHTML = "";
-      // displayCards(hotelCards);
+      mapPage();
     }
   } else {
     homeStart();

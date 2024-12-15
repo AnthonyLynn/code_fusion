@@ -219,6 +219,10 @@ selectHotelButton.addEventListener("click", () => {
   history.pushState({ view: "map" }, "Your Route Map", "?view=map");
 });
 
+cardsBackButton.addEventListener("click", () => {
+  history.back();
+});
+
 window.addEventListener("popstate", (event) => {
   if (event.state) {
     if (event.state.view === "bars") {

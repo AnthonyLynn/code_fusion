@@ -189,24 +189,30 @@ function hotelPage() {
   cardContentContainer.innerHTML = "";
   nextHotelButton.style = "display: none";
   selectHotelButton.style.display = "";
+  infoAppButton.style = "display: none";
   displayCards(hotelCards);
 }
 function mapPage() {
   cardsHeader.textContent = "Your Bar Hoppin Route";
   cardContentContainer.innerHTML = "";
   selectHotelButton.style = "display: none";
+  nextHotelButton.style = "display: none";
   infoAppButton.style.display = "";
 }
+
+function homeStart() {
+  profileSection.style.display = "";
+  pageSection.style = "background-color: #1e1e1e";
+  cardsSection.style.display = "none";
+}
+
 profileGoButton.addEventListener("click", () => {
   barsPage();
   history.pushState({ view: "bars" }, "Select Bars", "?view=bars");
 });
 
 exitAppButton.addEventListener("click", () => {
-  profileSection.style.display = "";
-  pageSection.style = "background-color: #1e1e1e";
-
-  cardsSection.style.display = "none";
+  homeStart();
 });
 
 nextHotelButton.addEventListener("click", () => {

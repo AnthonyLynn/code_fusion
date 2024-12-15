@@ -172,6 +172,7 @@ function displayCards(cardData) {
 
 function barsPage() {
   cardsHeader.textContent = "Select Bars";
+  cardsBackButton.style = "display: none";
   selectHotelButton.style = "display: none";
   infoAppButton.style = "display: none";
   nextHotelButton.style =
@@ -186,6 +187,7 @@ function barsPage() {
 
 function hotelPage() {
   cardsHeader.textContent = "Select Hotels";
+  cardsBackButton.style.display = "";
   cardContentContainer.innerHTML = "";
   nextHotelButton.style = "display: none";
   selectHotelButton.style.display = "";
@@ -194,6 +196,7 @@ function hotelPage() {
 }
 function mapPage() {
   cardsHeader.textContent = "Your Bar Hoppin Route";
+  cardsBackButton.style.display = "";
   cardContentContainer.innerHTML = "";
   selectHotelButton.style = "display: none";
   nextHotelButton.style = "display: none";

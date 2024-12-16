@@ -16,7 +16,7 @@ import {
   cardContentContainer,
   mapElement,
   mapId,
-  cardId
+  cardId,
 } from "../utils/constants.js";
 import GoogleMap from "../utils/googleMap.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
@@ -45,7 +45,7 @@ function getSelectedCards(cardsSection) {
       const dataId = uuidv4();
       const cardData = {
         id: dataId,
-        card_Type: cardType
+        card_Type: cardType,
       };
       if (cardType === "hotel") {
         document.querySelectorAll(".card--selected").forEach((selectedCard) => {

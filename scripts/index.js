@@ -44,6 +44,7 @@ function getSelectedCards(cardsSection, bars, hotel) {
     const card = event.target.closest(".card");
 
     if (card) {
+      const cardName = card.dataset.name;
       const cardType = card.dataset.cardType;
       const cardlatitude = card.dataset.latitude;
       const cardlongitude = card.dataset.longitude;
@@ -53,10 +54,11 @@ function getSelectedCards(cardsSection, bars, hotel) {
 
       const dataId = uuidv4();
       const cardData = {
+        name: cardName,
         id: dataId,
         card_Type: cardType,
-        card_Lat: cardlatitude,
-        card_Long: cardlongitude
+        card_Lat: parseFloat(cardlatitude),
+        card_Long: parseFloat(cardlongitude)
       };
 
       if (cardType === "hotel") {
@@ -141,6 +143,7 @@ function mapPage() {
   nextHotelButton.style = "display: none";
   infoAppButton.style.display = "";
   mapElement.style.display = "";
+  initMap();
 }
 
 function homeStart() {
@@ -156,6 +159,9 @@ profileGoButton.addEventListener("click", () => {
 });
 
 exitAppButton.addEventListener("click", () => {
+  while (selectedCardList.length > 0) {
+    selectedCardList.pop();
+  }
   homeStart();
 });
 
@@ -170,6 +176,7 @@ selectHotelButton.addEventListener("click", () => {
 });
 
 cardsBackButton.addEventListener("click", () => {
+  selectedCardList.pop();
   history.back();
 });
 
@@ -192,26 +199,32 @@ async function initMap() {
   const map = new GoogleMap(mapId);
   map.load(mapElement);
   const pinOne = map.createPin(2, "#EA4335", "#EA4335", "1"); // Creates element to display
-  map.addMarker(
-    { lat: 39.00507919540697, lng: -77.37462108939121 },
-    "Test",
-    pinOne
-  ); // Adds the marker to the map
-  const pinTwo = map.createPin(2, "#EA4335", "#EA4335", "2");
-  map.addMarker(
-    { lat: 39.03521359683118, lng: -77.46924041091553 },
-    "Test",
-    pinTwo
-  );
-  const pinThree = map.createPin(2, "#EA4335", "#EA4335", "3");
-  map.addMarker(
-    { lat: 39.11396980323522, lng: -77.52863987934046 },
-    "Test",
-    pinThree
-  );
+
+  selectedCardList.forEach((card, index) => {
+    const pin = map.createPin(2, "#EA4335", "#EA4335", (index + 1).toString());
+    map.addMarker(
+      { lat: parseFloat(card.card_Lat), lng: parseFloat(card.card_Long) },
+      card.name,
+      pin
+    );
+  });
+  // map.addMarker({ lat: 40.751373, lng: -73.993552 }, "Test", pinOne); // Adds the marker to the map
+  // const pinTwo = map.createPin(2, "#EA4335", "#EA4335", "2");
+  // map.addMarker(
+  //   { lat: 39.03521359683118, lng: -77.46924041091553 },
+  //   "Test",
+  //   pinTwo
+  // );
+  // const pinThree = map.createPin(2, "#EA4335", "#EA4335", "3");
+  // map.addMarker(
+  //   { lat: 39.11396980323522, lng: -77.52863987934046 },
+  //   "Test",
+  //   pinThree
+  // );
+
   map.displayRoute(); // Creates map from markers
   document.addEventListener("mousedown", (evt) => {
     map.focusViewOnMarkers();
   });
 }
-window.addEventListener("load", initMap);
+// window.addEventListener("load", initMap);

@@ -14,9 +14,11 @@ import {
   footerSection,
   cardsSection,
   cardContentContainer,
+  mapElement,
+  mapId,
   cardId
 } from "../utils/constants.js";
-
+import GoogleMap from "../utils/googleMap.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
 function getCardElement(data, cardType) {
@@ -104,6 +106,7 @@ function barsPage() {
   const cardType = "bars";
   displayCards(initialCards, cardType);
   cardsSection.style.display = "block";
+  mapElement.style.display = "none";
 }
 
 function hotelPage() {
@@ -123,12 +126,14 @@ function mapPage() {
   selectHotelButton.style = "display: none";
   nextHotelButton.style = "display: none";
   infoAppButton.style.display = "";
+  mapElement.style.display = "";
 }
 
 function homeStart() {
   profileSection.style.display = "";
   pageSection.style = "background-color: #1e1e1e";
   cardsSection.style.display = "none";
+  mapElement.style.display = "none";
 }
 
 profileGoButton.addEventListener("click", () => {

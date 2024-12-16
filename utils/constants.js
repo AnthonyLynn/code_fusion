@@ -77,4 +77,7 @@ export const footerSection = document.querySelector(".footer");
 
 export const cardsSection = document.querySelector(".cards");
 export const cardContentContainer = document.querySelector(".cards__pics");
+
+export const mapElement = document.getElementById("map");
+export const mapId = "38b778211c09ff7e";
 export const cardId = cardsSection.querySelector("#id");

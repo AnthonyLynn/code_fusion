@@ -31,22 +31,34 @@ function getCardElement(data, cardType) {
 
   cardImage.src = data.image;
   cardImage.alt = data.name;
+
   cardElement.setAttribute("data-card-type", cardType);
+  cardElement.setAttribute("data-latitude", data.latitude);
+  cardElement.setAttribute("data-longitude", data.longitude);
 
   return cardElement;
 }
 
-function getSelectedCards(cardsSection) {
+function getSelectedCards(cardsSection, bars, hotel) {
   cardsSection.addEventListener("click", (event) => {
     const card = event.target.closest(".card");
 
     if (card) {
-      const cardType = card.getAttribute("data-card-type");
+      const cardType = card.dataset.cardType;
+      const cardlatitude = card.dataset.latitude;
+      const cardlongitude = card.dataset.longitude;
+
+      console.log(`card_lat :${cardlatitude}`);
+      console.log(`card_long :${cardlongitude}`);
+
       const dataId = uuidv4();
       const cardData = {
         id: dataId,
-        card_Type: cardType
+        card_Type: cardType,
+        card_Lat: cardlatitude,
+        card_Long: cardlongitude
       };
+
       if (cardType === "hotel") {
         document.querySelectorAll(".card--selected").forEach((selectedCard) => {
           selectedCard.classList.remove("card--selected");
@@ -174,7 +186,7 @@ window.addEventListener("popstate", (event) => {
     homeStart();
   }
 });
-getSelectedCards(cardsSection);
+getSelectedCards(cardsSection, barCards, hotelCards);
 
 async function initMap() {
   const map = new GoogleMap(mapId);

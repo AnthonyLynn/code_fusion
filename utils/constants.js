@@ -4,7 +4,7 @@ import barsData from "../santacon_2024_venues.json" with { type: "json" };
 export const selectedCardList = [];
 export const barCards = barsData.data;
 export const hotelCards = hotelData.Hotels;
-export const cardsHeader = document.querySelector(".cards__header");
+export const pageSection = document.querySelector(".page");
 export const profileGoButton = document.querySelector(".profile__go-btn");
 export const profileSection = document.querySelector(".profile");
 export const cardsSection = document.querySelector(".cards");
@@ -24,5 +24,5 @@ export const footerSection = document.querySelector(".footer");
 
 export const mapElement = document.getElementById("map");
 export const mapId = "38b778211c09ff7e";
-export const cardId = cardsSection.querySelector("#id");
+
 

@@ -8,10 +8,10 @@
 }
 
 .cards__type_bar {
-  overflow-x: scroll;
   grid: repeat(2, 195px) / auto-flow 195px;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  overflow-x: scroll;
+  /*-ms-overflow-style: none;
+  scrollbar-width: none;*/
 }
 
 .cards__type_bar::-webkit-scrollbar {

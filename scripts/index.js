@@ -44,16 +44,40 @@ const mapPage = document.getElementById(mapPageSelector);
 const pages = [homePage, barPage, hotelPage, mapPage];
 let currentPage;
 
+function closePages() {
+  pages.forEach((page) => {
+    page.classList.add(hidePageClass);
+  });
+}
+
 function openPage(element) {
   closePages();
   element.classList.remove(hidePageClass);
   currentPage = element;
 }
 
-function closePages() {
-  pages.forEach((page) => {
-    page.classList.add(hidePageClass);
-  });
+function openHomePage() {
+  openPage(homePage);
+  closeButtons();
+}
+
+function openBarPage() {
+  openPage(barPage);
+  openButtons();
+  showMiddleButton(nextBtn);
+}
+
+function openHotelPage() {
+  openPage(hotelPage);
+  openButtons();
+  showMiddleButton(tripBtn);
+}
+
+function openMapPage() {
+  openPage(mapPage);
+  openButtons();
+  showMiddleButton(infoBtn);
+  initMap();
 }
 
 // Buttons
@@ -75,29 +99,21 @@ function closeButtons() {
   buttons.classList.add(hideButtonsClass);
 }
 
-function setMiddleButton(element) {
-  closeMiddleButtons();
+function showMiddleButton(element) {
+  hideMiddleButtons();
   element.classList.remove(hideButtonClass);
 }
 
-function closeMiddleButtons() {
+function hideMiddleButtons() {
   middleButtons.forEach((middleButton) => {
     middleButton.classList.add(hideButtonClass);
   });
 }
 
 backBtn.addEventListener("click", () => {
-  if (currentPage === barPage) {
-    return openHomePage();
-  }
-
-  if (currentPage === hotelPage) {
-    return openBarPage();
-  }
-
-  if (currentPage === mapPage) {
-    return openHotelPage();
-  }
+  if (currentPage === barPage) return openHomePage();
+  if (currentPage === hotelPage) return openBarPage();
+  if (currentPage === mapPage) return openHotelPage();
 });
 
 exitBtn.addEventListener("click", openHomePage);
@@ -105,11 +121,6 @@ nextBtn.addEventListener("click", openHotelPage);
 tripBtn.addEventListener("click", openMapPage);
 
 // Home Page
-function openHomePage() {
-  openPage(homePage);
-  closeButtons();
-}
-
 const goBtn = document.getElementById(goBtnSelector);
 goBtn.addEventListener("click", openBarPage);
 
@@ -117,18 +128,17 @@ goBtn.addEventListener("click", openBarPage);
 const barCards = document.getElementById(barCardsSelector);
 const themeButtons = document.getElementById(themesSelector);
 
-function openBarPage() {
-  openPage(barPage);
-  openButtons();
-  setMiddleButton(nextBtn);
-}
-
 let loadedBarCards = [];
 function loadBars() {
   bars.forEach((barData) => {
     // Load start point
     if (barData.categories === "START POINT!") {
-      startPoint = barData;
+      startPoint = {
+        name: barData.name,
+        categories: barData.categories,
+        lat: parseFloat(barData.latitude),
+        lng: parseFloat(barData.longitude),
+      };
       return;
     }
 
@@ -145,7 +155,7 @@ function loadBars() {
         node = null;
         card.element.classList.remove(cardActiveClass);
       } else {
-        node = selectedBars.append(card.data);
+        node = selectedBars.append(card);
         card.element.classList.add(cardActiveClass);
       }
     });
@@ -176,17 +186,11 @@ function loadThemeButtons() {
 const hotelCards = document.getElementById(hotelCardsSelector);
 let selectedHotel;
 
-function openHotelPage() {
-  openPage(hotelPage);
-  openButtons();
-  setMiddleButton(tripBtn);
-}
-
-function loadHotelCards() {
-  console.log(hotels);
+function createHotelCards() {
   hotels.forEach((hotelData) => {
     // Fill hotels card container
     const card = createCard(hotelData);
+
     card.element.addEventListener("click", () => {
       if (selectedHotel) {
         selectedHotel.element.classList.remove(cardActiveClass);
@@ -198,13 +202,6 @@ function loadHotelCards() {
 
     hotelCards.append(card.element);
   });
-}
-
-// Map Page
-function openMapPage() {
-  openPage(mapPage);
-  openButtons();
-  setMiddleButton(infoBtn);
 }
 
 // Card
@@ -272,34 +269,48 @@ function createThemeButtonElement(themeName) {
 import GoogleMap from "../utils/googleMap.js";
 const mapElement = document.getElementById(mapSelector);
 
+let map;
 async function initMap() {
-  const map = new GoogleMap(mapId);
-  map.load(mapElement);
-  const pinOne = map.createPin(2, "#EA4335", "#EA4335", "1");
+  if (!map) {
+    map = new GoogleMap(mapId);
+    map.load(mapElement);
+  }
+
+  map.clearMarkers();
+
+  // Starting Marker
   map.addMarker(
-    { lat: 39.00507919540697, lng: -77.37462108939121 },
-    "Test",
-    pinOne
+    { lat: startPoint.lat, lng: startPoint.lng },
+    startPoint.name,
+    map.createPin(2, "#EA4335", "#EA4335", "1")
   );
-  const pinTwo = map.createPin(2, "#EA4335", "#EA4335", "2");
+
+  // Bar Markers
+  let currentNode = selectedBars.head;
+  let i = 2;
+  while (currentNode) {
+    const { lat, lng, name } = currentNode.item;
+    map.addMarker(
+      { lat: lat, lng: lng },
+      name,
+      map.createPin(2, "#EA4335", "#EA4335", i.toString())
+    );
+    i++;
+    currentNode = currentNode.next;
+  }
+
+  // Endding Marker
   map.addMarker(
-    { lat: 39.03521359683118, lng: -77.46924041091553 },
-    "Test",
-    pinTwo
+    { lat: selectedHotel.lat, lng: selectedHotel.lng },
+    selectedHotel.name,
+    map.createPin(2, "#EA4335", "#EA4335", i.toString())
   );
-  const pinThree = map.createPin(2, "#EA4335", "#EA4335", "3");
-  map.addMarker(
-    { lat: 39.11396980323522, lng: -77.52863987934046 },
-    "Test",
-    pinThree
-  );
+
   map.displayRoute();
   map.focusViewOnMarkers();
 }
 
-window.addEventListener("load", initMap);
-
 // Init
 loadBars();
 loadThemeButtons();
-loadHotelCards();
+createHotelCards();

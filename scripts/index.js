@@ -55,6 +55,7 @@ function getSelectedCards(cardsSection) {
         if (!card.classList.contains("card--selected")) {
           card.classList.add("card--selected");
           card.classList.add("card--disabled");
+
           const hotelIndex = selectedCardList.findIndex(
             (item) => item.card_Type === "hotels"
           );
@@ -110,7 +111,7 @@ function barsPage() {
 }
 
 function hotelPage() {
-  cardsHeader.textContent = "Select Hotels";
+  cardsHeader.textContent = "Select Hotel";
   cardsBackButton.style.display = "";
   cardContentContainer.innerHTML = "";
   nextHotelButton.style = "display: none";

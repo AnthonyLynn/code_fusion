@@ -33,21 +33,6 @@
   cursor: not-allowed;
 }
 
-/* .card__trash-btn {
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  background-image: url(../images/trash-can.svg);
-  width: 32px;
-  height: 32px;
-  top: 10px;
-  right: 10px;
-} */
-
-/* .card__trash-btn:hover {
-  background-image: url(../images/trash-can-hover.svg);
-} */
-
 .card__footer {
   margin: 0;
   padding: 12px 0 0px;
@@ -127,11 +112,11 @@
   .card__image {
     height: 288px;
   }
-  .card__footer-title {
+  /* .card__footer-title {
     font-size: 16px;
     -webkit-line-clamp: 1;
     line-height: 16px;
-  }
+  } */
   .card__footer-title {
     max-width: 263px;
   }

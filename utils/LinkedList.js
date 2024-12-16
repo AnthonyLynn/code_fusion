@@ -20,18 +20,17 @@ export default class LinkedList {
   }
 
   remove(node) {
+    if (node.prev) {
+      node.prev.next = node.next;
+    }
+
+    if (node.next) {
+      node.next.prev = node.prev;
+    }
+
     if (this.head === node) {
       this.head = node.next;
-      return;
     }
-
-    if (this.tail === node) {
-      this.tail = node.prev;
-      return;
-    }
-
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
   }
 
   getElements() {

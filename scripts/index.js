@@ -1,7 +1,6 @@
-import {
-  barCards,
+/*import {
+  initialCards,
   hotelCards,
-  selectedCardList,
   cardsHeader,
   profileGoButton,
   profileSection,
@@ -16,80 +15,50 @@ import {
   cardContentContainer,
   mapElement,
   mapId,
-  cardId,
 } from "../utils/constants.js";
 import GoogleMap from "../utils/googleMap.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
-function getCardElement(data, cardType) {
+function getCardElement(data) {
   const cardElement = document
     .querySelector("#card")
     .content.querySelector(".card")
     .cloneNode(true);
 
+  cardElement.querySelector(".card__footer-title").textContent = data.name;
+
   const cardImage = cardElement.querySelector(".card__image");
 
-  cardImage.src = data.image;
+  cardImage.src = data.link;
   cardImage.alt = data.name;
-  cardElement.setAttribute("data-card-type", cardType);
+
+  const id = uuidv4();
+
+  // const cardHeartBtn = cardElement.querySelector(".card__footer-heart-btn");
+
+  // cardHeartBtn.addEventListener("click", () => {
+  //   handleLikeButton(cardHeartBtn);
+  // });
+
+  // const cardTrashButton = cardElement.querySelector(".card__trash-btn");
+
+  // cardTrashButton.addEventListener("click", () => {
+  //   handleDeleteButton(cardElement);
+  // });
+
+  cardImage.addEventListener("click", () => {
+    // openImageModal(cardElement);
+  });
 
   return cardElement;
 }
-
-function getSelectedCards(cardsSection) {
-  cardsSection.addEventListener("click", (event) => {
-    const card = event.target.closest(".card");
-
-    if (card) {
-      const cardType = card.getAttribute("data-card-type");
-      const dataId = uuidv4();
-      const cardData = {
-        id: dataId,
-        card_Type: cardType,
-      };
-      if (cardType === "hotel") {
-        document.querySelectorAll(".card--selected").forEach((selectedCard) => {
-          selectedCard.classList.remove("card--selected");
-          selectedCard.classList.remove("card--disabled");
-        });
-        if (!card.classList.contains("card--selected")) {
-          card.classList.add("card--selected");
-          card.classList.add("card--disabled");
-
-          const hotelIndex = selectedCardList.findIndex(
-            (item) => item.card_Type === "hotels"
-          );
-          if (hotelIndex !== -1) {
-            selectedCardList.splice(hotelIndex, 1);
-          }
-
-          selectedCardList.push(cardData);
-        }
-      } else if (cardType === "bars") {
-        if (card.classList.toggle("card--selected")) {
-          card.classList.add("card--disabled");
-          selectedCardList.push(cardData);
-        } else {
-          const index = selectedCardList.findIndex(
-            (item) => item.id === dataId
-          );
-          if (index !== -1) {
-            selectedCardList.splice(index, 1);
-            card.classList.remove("card--disabled");
-          }
-        }
-      }
-
-      console.log("Selected Cards:", selectedCardList);
-
-      console.log(`Card selected: ${dataId}`);
-    }
-  });
+function handleLikeButton(cardEl) {
+  cardEl.classList.toggle("card__footer-heart-btn-liked");
 }
 
-function displayCards(cardData, cardType) {
+function displayCards(cardData) {
   cardData.forEach((item) => {
-    cardContentContainer.append(getCardElement(item, cardType));
+    cardContentContainer.append(getCardElement(item));
   });
 }
 
@@ -104,21 +73,20 @@ function barsPage() {
   profileSection.style = "display: none";
   footerSection.style = "display: none";
   pageSection.style = "background-color: #EAE7E5";
-  const cardType = "bars";
-  displayCards(barCards, cardType);
+  const barCards = displayCards(initialCards);
   cardsSection.style.display = "block";
   mapElement.style.display = "none";
 }
 
 function hotelPage() {
-  cardsHeader.textContent = "Select Hotel";
+  cardsHeader.textContent = "Select Hotels";
   cardsBackButton.style.display = "";
   cardContentContainer.innerHTML = "";
   nextHotelButton.style = "display: none";
   selectHotelButton.style.display = "";
   infoAppButton.style = "display: none";
-  const cardType = "hotel";
-  displayCards(hotelCards, cardType);
+  mapElement.style.display = "none";
+  displayCards(hotelCards);
 }
 function mapPage() {
   cardsHeader.textContent = "Your Bar Hoppin Route";
@@ -173,4 +141,33 @@ window.addEventListener("popstate", (event) => {
     homeStart();
   }
 });
-getSelectedCards(cardsSection);
+
+async function initMap() {
+  const map = new GoogleMap(mapId);
+  map.load(mapElement);
+  const pinOne = map.createPin(2, "#EA4335", "#EA4335", "1");
+  map.addMarker(
+    { lat: 39.00507919540697, lng: -77.37462108939121 },
+    "Test",
+    pinOne
+  );
+  const pinTwo = map.createPin(2, "#EA4335", "#EA4335", "2");
+  map.addMarker(
+    { lat: 39.03521359683118, lng: -77.46924041091553 },
+    "Test",
+    pinTwo
+  );
+  const pinThree = map.createPin(2, "#EA4335", "#EA4335", "3");
+  map.addMarker(
+    { lat: 39.11396980323522, lng: -77.52863987934046 },
+    "Test",
+    pinThree
+  );
+  map.displayRoute();
+  document.addEventListener("mousedown", (evt) => {
+    map.focusViewOnMarkers();
+  });
+}
+
+window.addEventListener("load", initMap);
+*/

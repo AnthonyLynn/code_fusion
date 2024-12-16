@@ -90,10 +90,6 @@ function getSelectedCards(cardsSection) {
           }
         }
       }
-
-      console.log("Selected Cards:", selectedCardList);
-
-      console.log(`Card selected: ${dataId}`);
     }
   });
 }

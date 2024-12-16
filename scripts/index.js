@@ -119,6 +119,7 @@ function hotelPage() {
   infoAppButton.style = "display: none";
   const cardType = "hotel";
   displayCards(hotelCards, cardType);
+  mapElement.style.display = "none";
 }
 function mapPage() {
   cardsHeader.textContent = "Your Bar Hoppin Route";
@@ -174,3 +175,31 @@ window.addEventListener("popstate", (event) => {
   }
 });
 getSelectedCards(cardsSection);
+
+async function initMap() {
+  const map = new GoogleMap(mapId);
+  map.load(mapElement);
+  const pinOne = map.createPin(2, "#EA4335", "#EA4335", "1"); // Creates element to display
+  map.addMarker(
+    { lat: 39.00507919540697, lng: -77.37462108939121 },
+    "Test",
+    pinOne
+  ); // Adds the marker to the map
+  const pinTwo = map.createPin(2, "#EA4335", "#EA4335", "2");
+  map.addMarker(
+    { lat: 39.03521359683118, lng: -77.46924041091553 },
+    "Test",
+    pinTwo
+  );
+  const pinThree = map.createPin(2, "#EA4335", "#EA4335", "3");
+  map.addMarker(
+    { lat: 39.11396980323522, lng: -77.52863987934046 },
+    "Test",
+    pinThree
+  );
+  map.displayRoute(); // Creates map from markers
+  document.addEventListener("mousedown", (evt) => {
+    map.focusViewOnMarkers();
+  });
+}
+window.addEventListener("load", initMap);

@@ -22,8 +22,8 @@
   display: flex;
   color: black;
   font-size: 64px;
-  margin-top: 41px;
-  margin-bottom: 68px;
+
+  margin: 0 auto;
   padding: 0;
   justify-content: center;
   width: 100%;

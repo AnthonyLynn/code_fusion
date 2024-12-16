@@ -39,7 +39,7 @@ function getCardElement(data, cardType) {
   return cardElement;
 }
 
-function getSelectedCards(cardsSection, bars, hotel) {
+function getSelectedCards(cardsSection) {
   cardsSection.addEventListener("click", (event) => {
     const card = event.target.closest(".card");
 
@@ -48,9 +48,6 @@ function getSelectedCards(cardsSection, bars, hotel) {
       const cardType = card.dataset.cardType;
       const cardlatitude = card.dataset.latitude;
       const cardlongitude = card.dataset.longitude;
-
-      console.log(`card_lat :${cardlatitude}`);
-      console.log(`card_long :${cardlongitude}`);
 
       const dataId = uuidv4();
       const cardData = {
@@ -193,7 +190,7 @@ window.addEventListener("popstate", (event) => {
     homeStart();
   }
 });
-getSelectedCards(cardsSection, barCards, hotelCards);
+getSelectedCards(cardsSection);
 
 async function initMap() {
   const map = new GoogleMap(mapId);

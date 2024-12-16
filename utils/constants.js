@@ -7,7 +7,10 @@ export const hotelCards = hotelData.Hotels;
 export const cardsHeader = document.querySelector(".cards__header");
 export const profileGoButton = document.querySelector(".profile__go-btn");
 export const profileSection = document.querySelector(".profile");
-export const pageSection = document.querySelector(".page");
+export const cardsSection = document.querySelector(".cards");
+export const cardsHeader = document.querySelector(".cards__header");
+export const cardId = cardsSection.querySelector("#id");
+export const cardContentContainer = document.querySelector(".cards__pics");
 export const cardsBackButton = document.querySelector(".cards__back-btn");
 export const selectHotelButton = document.querySelector(
   ".cards__selecthotel-btn"
@@ -18,8 +21,6 @@ export const infoAppButton = document.querySelector(".cards__info-btn");
 
 export const footerSection = document.querySelector(".footer");
 
-export const cardsSection = document.querySelector(".cards");
-export const cardContentContainer = document.querySelector(".cards__pics");
 
 export const mapElement = document.getElementById("map");
 export const mapId = "38b778211c09ff7e";

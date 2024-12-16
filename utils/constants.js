@@ -1,28 +1,54 @@
-import hotelData from "../hotels.json" with { type: "json" };
-import barsData from "../santacon_2024_venues.json" with { type: "json" };
+import hotelsJson from "../hotels.json" with { type: "json" };
+import barsJson from "../santacon_2024_venues.json" with { type: "json" };
 
-export const selectedCardList = [];
-export const barCards = barsData.data;
-export const hotelCards = hotelData.Hotels;
-export const pageSection = document.querySelector(".page");
-export const profileGoButton = document.querySelector(".profile__go-btn");
-export const profileSection = document.querySelector(".profile");
-export const cardsSection = document.querySelector(".cards");
-export const cardsHeader = document.querySelector(".cards__header");
-export const cardId = cardsSection.querySelector("#id");
-export const cardContentContainer = document.querySelector(".cards__pics");
-export const cardsBackButton = document.querySelector(".cards__back-btn");
-export const selectHotelButton = document.querySelector(
-  ".cards__selecthotel-btn"
-);
-export const nextHotelButton = document.querySelector(".cards__nexthotel-btn");
-export const exitAppButton = document.querySelector(".cards__exit-btn");
-export const infoAppButton = document.querySelector(".cards__info-btn");
+// Page
+export const hidePageClass = "page__section_hidden";
 
-export const footerSection = document.querySelector(".footer");
+// Home page
+export const homePageSelector = "home-page";
+export const goBtnSelector = "go-btn";
 
+// Bar page
+export const barPageSelector = "bar-page";
+export const themesSelector = "themes";
+export const barCardsSelector = "bar-cards";
 
-export const mapElement = document.getElementById("map");
+export const bars = barsJson.data;
+
+// Hotel page
+export const hotelPageSelector = "hotel-page";
+export const hotelCardsSelector = "hotel-cards";
+
+export const hotels = hotelsJson.Hotels;
+
+// Map page
+export const mapPageSelector = "map-page";
+export const mapSelector = "map";
 export const mapId = "38b778211c09ff7e";
 
+// Buttons
+export const buttonsSelector = "buttons";
+export const hideButtonsClass = "buttons_hidden";
 
+export const backBtnSelector = "back-btn";
+export const nextBtnSelector = "next-btn";
+export const infoBtnSelector = "info-btn";
+export const tripBtnSelector = "trip-btn";
+export const exitBtnSelector = "exit-btn";
+export const hideButtonClass = "buttons__button_hidden";
+
+// Templates
+export const themeTemplateSelector = "theme";
+export const themeSelectors = {
+  list: ".theme",
+}
+export const themeActiveClass = "theme_active";
+
+export const cardTemplateSelector = "card";
+export const cardSelectors = {
+  list: ".card",
+  image: ".card__image",
+  name: ".card__name",
+};
+export const cardActiveClass = "card_active";
+export const cardHiddenClass = "card_hidden";

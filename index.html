@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="page">
-      <section class="home">
+      <section class="home page__section" id="home-page">
         <header class="header">
           <img
             src="./images/Logo.jpg"
@@ -24,48 +24,114 @@
             Create a optimal route of bars to visit for SantaCon!
           </p>
         </header>
-        <button class="home__go-btn">Let's Go Bar Hoppin!</button>
+        <button class="home__go-btn" id="go-btn">Let's Go Bar Hoppin!</button>
         <footer class="footer">
           <p class="footer__copywrite">2024 © SantaCon Bar Route Guide</p>
         </footer>
       </section>
-      <!--<section class="bars page__section_hidden">
-        <h2 class="bars__title">Select Bars</h2>
-        <ul class="cards">
-
-        </ul>
+      <section
+        class="selection-page page__section page__section_hidden"
+        id="bar-page"
+      >
+        <h2 class="selection-page__title">Select Bars</h2>
+        <p class="selection-page__subtitle">Themes:</p>
+        <ul class="themes" id="themes"></ul>
+        <p class="selection-page__subtitle">Bars:</p>
+        <ul class="cards cards__type_bar" id="bar-cards"></ul>
       </section>
-      <section class="hotels page__section_hidden">
-        <h2 class="hotels__title">Select Hotel</h2>
-        <ul class="cards">
-          
-        </ul>
+      <section
+        class="selection-page page__section page__section_hidden"
+        id="hotel-page"
+      >
+        <h2 class="selection-page__title">Select Hotel</h2>
+        <p class="selection-page__subtitle">Hotels:</p>
+        <ul class="cards" id="hotel-cards"></ul>
       </section>
-      <section class="map page__section_hidden">
+      <section
+        class="selection-page page__section page__section_hidden"
+        id="map-page"
+      >
+        <h2 class="selection-page__title">Your Bar Hoppin Route</h2>
         <div class="map" id="map"></div>
       </section>
-      <div class="button-dock">
-        <button class="button-dock__back-btn"></button>
-        <button class="button-dock__next-btn"></button>
-        <button class="button-dock__info-btn"></button>
-        <button class="button-dock__exit-btn"></button>
+      <div class="buttons buttons_hidden" id="buttons">
+        <button type="button" class="buttons__button" id="back-btn">
+          <div class="buttons__circle">
+            <img
+              src="./images/Arrow.svg"
+              alt="Back Arrow"
+              class="buttons__image"
+            />
+          </div>
+          <span class="buttons__text">Back</span>
+        </button>
+        <button
+          type="button"
+          class="buttons__button buttons__button_type_large buttons__button_hidden"
+          id="next-btn"
+        >
+          <div class="buttons__circle">
+            <img
+              src="./images/NextArrow.svg"
+              alt="Next Arrow"
+              class="buttons__image"
+            />
+          </div>
+          <span class="buttons__text">Next</span>
+        </button>
+        <button
+          type="button"
+          class="buttons__button buttons__button_type_large"
+          id="info-btn"
+        >
+          <div class="buttons__circle">
+            <img
+              src="./images/Info.svg"
+              alt="Info Icon"
+              class="buttons__image"
+            />
+          </div>
+          <span class="buttons__text">Info</span>
+        </button>
+        <button
+          type="button"
+          class="buttons__button buttons__button_type_large buttons__button_hidden"
+          id="trip-btn"
+        >
+          <div class="buttons__circle">
+            <img
+              src="./images/Trip.svg"
+              alt="Trip Icon"
+              class="buttons__image"
+            />
+          </div>
+          <span class="buttons__text">Guide my Sleigh</span>
+        </button>
+        <button type="button" class="buttons__button" id="exit-btn">
+          <div class="buttons__circle">
+            <img
+              src="./images/Exit.svg"
+              alt="Exit Icon"
+              class="buttons__image"
+            />
+          </div>
+          <span class="buttons__text">Exit</span>
+        </button>
       </div>
+      <template id="theme">
+        <li class="theme"></li>
+      </template>
       <template id="card">
         <li class="card">
-          <div class="card__content">
-            <img src="" alt="" class="card__image" />
-            <div class="card__footer">
-              <h2 class="card__footer-title"></h2>
-            </div>
-          </div>
+          <img src="" alt="" class="card__image" />
+          <h2 class="card__name"></h2>
         </li>
-      </template>-->
+      </template>
     </div>
 
     <script type="module" src="./scripts/index.js"></script>
     <!-- prettier-ignore -->
-    <!--<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
       ({key: "AIzaSyAM6uZpLhxeGNu2MFunnXgh_Cy9QQ5ryhI", v: "weekly"});</script>
-  </script>-->
   </body>
 </html>

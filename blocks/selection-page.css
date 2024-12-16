@@ -1,0 +1,28 @@
+.selection-page {
+  max-width: 620px;
+  height: 100%;
+  margin: auto;
+  padding: 20px 0 0;
+  box-sizing: border-box;
+}
+
+.selection-page__title {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  color: #272727;
+  text-align: center;
+
+  margin: 0;
+}
+
+.selection-page__subtitle {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #5b5b5b;
+  text-align: center;
+
+  margin: 20px 0 0;
+  width: min-content;
+}

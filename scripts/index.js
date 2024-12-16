@@ -1,146 +1,276 @@
-/*import {
-  initialCards,
-  hotelCards,
-  cardsHeader,
-  profileGoButton,
-  profileSection,
-  pageSection,
-  cardsBackButton,
-  selectHotelButton,
-  nextHotelButton,
-  exitAppButton,
-  infoAppButton,
-  footerSection,
-  cardsSection,
-  cardContentContainer,
-  mapElement,
+import {
+  homePageSelector,
+  goBtnSelector,
+  barPageSelector,
+  themesSelector,
+  barCardsSelector,
+  hotelPageSelector,
+  hotelCardsSelector,
+  mapPageSelector,
+  mapSelector,
   mapId,
+  buttonsSelector,
+  backBtnSelector,
+  nextBtnSelector,
+  infoBtnSelector,
+  tripBtnSelector,
+  exitBtnSelector,
+  themeTemplateSelector,
+  cardTemplateSelector,
+  themeSelectors,
+  themeActiveClass,
+  cardSelectors,
+  cardActiveClass,
+  cardHiddenClass,
+  hidePageClass,
+  hideButtonsClass,
+  hideButtonClass,
+  bars,
+  hotels,
 } from "../utils/constants.js";
-import GoogleMap from "../utils/googleMap.js";
-import { v4 as uuidv4 } from "https://jspm.dev/uuid";
+import LinkedList from "../utils/LinkedList.js";
 
-function getCardElement(data) {
-  const cardElement = document
-    .querySelector("#card")
-    .content.querySelector(".card")
+let selectedBars = new LinkedList();
+let themes = {};
+let currentTheme = "";
+let startPoint;
+
+// Pages
+const homePage = document.getElementById(homePageSelector);
+const barPage = document.getElementById(barPageSelector);
+const hotelPage = document.getElementById(hotelPageSelector);
+const mapPage = document.getElementById(mapPageSelector);
+
+const pages = [homePage, barPage, hotelPage, mapPage];
+let currentPage;
+
+function openPage(element) {
+  closePages();
+  element.classList.remove(hidePageClass);
+  currentPage = element;
+}
+
+function closePages() {
+  pages.forEach((page) => {
+    page.classList.add(hidePageClass);
+  });
+}
+
+// Buttons
+const buttons = document.getElementById(buttonsSelector);
+const backBtn = document.getElementById(backBtnSelector);
+const exitBtn = document.getElementById(exitBtnSelector);
+
+const nextBtn = document.getElementById(nextBtnSelector);
+const infoBtn = document.getElementById(infoBtnSelector);
+const tripBtn = document.getElementById(tripBtnSelector);
+
+const middleButtons = [nextBtn, infoBtn, tripBtn];
+
+function openButtons() {
+  buttons.classList.remove(hideButtonsClass);
+}
+
+function closeButtons() {
+  buttons.classList.add(hideButtonsClass);
+}
+
+function setMiddleButton(element) {
+  closeMiddleButtons();
+  element.classList.remove(hideButtonClass);
+}
+
+function closeMiddleButtons() {
+  middleButtons.forEach((middleButton) => {
+    middleButton.classList.add(hideButtonClass);
+  });
+}
+
+backBtn.addEventListener("click", () => {
+  if (currentPage === barPage) {
+    return openHomePage();
+  }
+
+  if (currentPage === hotelPage) {
+    return openBarPage();
+  }
+
+  if (currentPage === mapPage) {
+    return openHotelPage();
+  }
+});
+
+exitBtn.addEventListener("click", openHomePage);
+nextBtn.addEventListener("click", openHotelPage);
+tripBtn.addEventListener("click", openMapPage);
+
+// Home Page
+function openHomePage() {
+  openPage(homePage);
+  closeButtons();
+}
+
+const goBtn = document.getElementById(goBtnSelector);
+goBtn.addEventListener("click", openBarPage);
+
+// Bar Page
+const barCards = document.getElementById(barCardsSelector);
+const themeButtons = document.getElementById(themesSelector);
+
+function openBarPage() {
+  openPage(barPage);
+  openButtons();
+  setMiddleButton(nextBtn);
+}
+
+let loadedBarCards = [];
+function loadBars() {
+  bars.forEach((barData) => {
+    // Load start point
+    if (barData.categories === "START POINT!") {
+      startPoint = barData;
+      return;
+    }
+
+    // Load themes
+    themes[barData.categories] = 1;
+
+    // Fill bars card container
+    const card = createCard(barData);
+
+    let node;
+    card.element.addEventListener("click", () => {
+      if (node) {
+        selectedBars.remove(node);
+        node = null;
+        card.element.classList.remove(cardActiveClass);
+      } else {
+        node = selectedBars.append(card.data);
+        card.element.classList.add(cardActiveClass);
+      }
+    });
+
+    loadedBarCards.push(card);
+    barCards.append(card.element);
+  });
+}
+
+function filterCards() {
+  loadedBarCards.forEach((card) => {
+    if (card.categories === currentTheme) {
+      card.element.classList.remove(cardHiddenClass);
+    } else {
+      card.element.classList.add(cardHiddenClass);
+    }
+  });
+}
+
+function loadThemeButtons() {
+  Object.keys(themes).forEach((themeName) => {
+    const themeElement = createThemeButtonElement(themeName);
+    themeButtons.append(themeElement);
+  });
+}
+
+// Hotel Page
+const hotelCards = document.getElementById(hotelCardsSelector);
+let selectedHotel;
+
+function openHotelPage() {
+  openPage(hotelPage);
+  openButtons();
+  setMiddleButton(tripBtn);
+}
+
+function loadHotelCards() {
+  console.log(hotels);
+  hotels.forEach((hotelData) => {
+    // Fill hotels card container
+    const card = createCard(hotelData);
+    card.element.addEventListener("click", () => {
+      if (selectedHotel) {
+        selectedHotel.element.classList.remove(cardActiveClass);
+      }
+
+      card.element.classList.add(cardActiveClass);
+      selectedHotel = card;
+    });
+
+    hotelCards.append(card.element);
+  });
+}
+
+// Map Page
+function openMapPage() {
+  openPage(mapPage);
+  openButtons();
+  setMiddleButton(infoBtn);
+}
+
+// Card
+const cardTemplate = document.getElementById(cardTemplateSelector);
+
+function createCard(data) {
+  return {
+    name: data.name,
+    categories: data.categories,
+    lat: parseFloat(data.latitude),
+    lng: parseFloat(data.longitude),
+    element: createCardElement(data),
+  };
+}
+
+function createCardElement(data) {
+  const cardElement = cardTemplate.content
+    .querySelector(cardSelectors.list)
     .cloneNode(true);
 
-  cardElement.querySelector(".card__footer-title").textContent = data.name;
+  const cardImage = cardElement.querySelector(cardSelectors.image);
+  const cardName = cardElement.querySelector(cardSelectors.name);
 
-  const cardImage = cardElement.querySelector(".card__image");
-
-  cardImage.src = data.link;
+  cardImage.src = data.image;
   cardImage.alt = data.name;
-
-  const id = uuidv4();
-
-  // const cardHeartBtn = cardElement.querySelector(".card__footer-heart-btn");
-
-  // cardHeartBtn.addEventListener("click", () => {
-  //   handleLikeButton(cardHeartBtn);
-  // });
-
-  // const cardTrashButton = cardElement.querySelector(".card__trash-btn");
-
-  // cardTrashButton.addEventListener("click", () => {
-  //   handleDeleteButton(cardElement);
-  // });
-
-  cardImage.addEventListener("click", () => {
-    // openImageModal(cardElement);
-  });
+  cardName.textContent = data.name;
 
   return cardElement;
 }
-function handleLikeButton(cardEl) {
-  cardEl.classList.toggle("card__footer-heart-btn-liked");
-}
 
-function displayCards(cardData) {
-  cardData.forEach((item) => {
-    cardContentContainer.append(getCardElement(item));
-  });
-}
+// Theme
+const themeTemplate = document.getElementById(themeTemplateSelector);
+let lastThemeButtonPressed;
 
-function barsPage() {
-  cardsHeader.textContent = "Select Bars";
-  cardsBackButton.style = "display: none";
-  selectHotelButton.style = "display: none";
-  infoAppButton.style = "display: none";
-  nextHotelButton.style =
-    "background-image: url('../images/SelectHotel-btn.svg')";
-  cardContentContainer.innerHTML = "";
-  profileSection.style = "display: none";
-  footerSection.style = "display: none";
-  pageSection.style = "background-color: #EAE7E5";
-  const barCards = displayCards(initialCards);
-  cardsSection.style.display = "block";
-  mapElement.style.display = "none";
-}
+function createThemeButtonElement(themeName) {
+  const themeElement = themeTemplate.content
+    .querySelector(themeSelectors.list)
+    .cloneNode(true);
 
-function hotelPage() {
-  cardsHeader.textContent = "Select Hotels";
-  cardsBackButton.style.display = "";
-  cardContentContainer.innerHTML = "";
-  nextHotelButton.style = "display: none";
-  selectHotelButton.style.display = "";
-  infoAppButton.style = "display: none";
-  mapElement.style.display = "none";
-  displayCards(hotelCards);
-}
-function mapPage() {
-  cardsHeader.textContent = "Your Bar Hoppin Route";
-  cardsBackButton.style.display = "";
-  cardContentContainer.innerHTML = "";
-  selectHotelButton.style = "display: none";
-  nextHotelButton.style = "display: none";
-  infoAppButton.style.display = "";
-  mapElement.style.display = "";
-}
-
-function homeStart() {
-  profileSection.style.display = "";
-  pageSection.style = "background-color: #1e1e1e";
-  cardsSection.style.display = "none";
-  mapElement.style.display = "none";
-}
-
-profileGoButton.addEventListener("click", () => {
-  barsPage();
-  history.pushState({ view: "bars" }, "Select Bars", "?view=bars");
-});
-
-exitAppButton.addEventListener("click", () => {
-  homeStart();
-});
-
-nextHotelButton.addEventListener("click", () => {
-  hotelPage();
-  history.pushState({ view: "hotels" }, "Select Hotels", "?view=hotels");
-});
-
-selectHotelButton.addEventListener("click", () => {
-  mapPage();
-  history.pushState({ view: "map" }, "Your Route Map", "?view=map");
-});
-
-cardsBackButton.addEventListener("click", () => {
-  history.back();
-});
-
-window.addEventListener("popstate", (event) => {
-  if (event.state) {
-    if (event.state.view === "bars") {
-      barsPage();
-    } else if (event.state.view === "hotels") {
-      hotelPage();
-    } else if (event.state.view === "map") {
-      mapPage();
+  themeElement.textContent = themeName;
+  themeElement.addEventListener("click", () => {
+    if (themeName === currentTheme) {
+      themeElement.classList.remove(themeActiveClass);
+      lastThemeButtonPressed = null;
+      currentTheme = "";
+      return;
     }
-  } else {
-    homeStart();
-  }
-});
+
+    if (lastThemeButtonPressed) {
+      lastThemeButtonPressed.classList.remove(themeActiveClass);
+      lastThemeButtonPressed = null;
+    }
+
+    themeElement.classList.add(themeActiveClass);
+    currentTheme = themeName;
+    filterCards();
+
+    lastThemeButtonPressed = themeElement;
+  });
+
+  return themeElement;
+}
+
+// Map
+import GoogleMap from "../utils/googleMap.js";
+const mapElement = document.getElementById(mapSelector);
 
 async function initMap() {
   const map = new GoogleMap(mapId);
@@ -164,10 +294,12 @@ async function initMap() {
     pinThree
   );
   map.displayRoute();
-  document.addEventListener("mousedown", (evt) => {
-    map.focusViewOnMarkers();
-  });
+  map.focusViewOnMarkers();
 }
 
 window.addEventListener("load", initMap);
-*/
+
+// Init
+loadBars();
+loadThemeButtons();
+loadHotelCards();

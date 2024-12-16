@@ -1,0 +1,36 @@
+.theme {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: #5b5b5b;
+  text-align: center;
+  padding: 2px 4px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 30%);
+  transition: box-shadow 0.1s ease-in-out;
+  user-select: none;
+  cursor: pointer;
+}
+
+.theme:hover {
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 20%);
+  color: #5b5b5b;
+  background-color: #fef5ee;
+}
+
+.theme:active {
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0);
+  color: #9e908c;
+  background-color: #c0b1a4;
+}
+
+.theme_active {
+  color: #ffffff;
+  background-color: #eea32b;
+}
+
+.theme_active:hover {
+  color: #fef5ee;
+  background-color: #d49124;
+}

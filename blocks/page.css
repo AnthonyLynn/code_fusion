@@ -1,6 +1,19 @@
 .page {
-  background: linear-gradient(#272727, #000000);
+  background: #eae7e5;
   min-height: 100vh;
   margin: 0 auto;
   width: 100%;
+  height: 100%;
+}
+
+.page__section {
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.page__section_hidden {
+  position: absolute;
+  display: none;
+  visibility: hidden;
 }

@@ -1,5 +1,5 @@
 import {
-  initialCards,
+  barCards,
   hotelCards,
   selectedCardList,
   cardsHeader,
@@ -29,7 +29,7 @@ function getCardElement(data, cardType) {
 
   const cardImage = cardElement.querySelector(".card__image");
 
-  cardImage.src = data.link;
+  cardImage.src = data.image;
   cardImage.alt = data.name;
   cardElement.setAttribute("data-card-type", cardType);
 
@@ -105,7 +105,7 @@ function barsPage() {
   footerSection.style = "display: none";
   pageSection.style = "background-color: #EAE7E5";
   const cardType = "bars";
-  displayCards(initialCards, cardType);
+  displayCards(barCards, cardType);
   cardsSection.style.display = "block";
   mapElement.style.display = "none";
 }

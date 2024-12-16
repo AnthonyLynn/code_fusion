@@ -73,10 +73,13 @@ function openHotelPage() {
   showMiddleButton(tripBtn);
 }
 
+let selectedHotel;
 function openMapPage() {
+  if (!selectedHotel) return;
   openPage(mapPage);
   openButtons();
-  showMiddleButton(infoBtn);
+  //showMiddleButton(infoBtn);
+  hideMiddleButtons();
   initMap();
 }
 
@@ -86,10 +89,10 @@ const backBtn = document.getElementById(backBtnSelector);
 const exitBtn = document.getElementById(exitBtnSelector);
 
 const nextBtn = document.getElementById(nextBtnSelector);
-const infoBtn = document.getElementById(infoBtnSelector);
+//const infoBtn = document.getElementById(infoBtnSelector);
 const tripBtn = document.getElementById(tripBtnSelector);
 
-const middleButtons = [nextBtn, infoBtn, tripBtn];
+const middleButtons = [nextBtn, /*infoBtn,*/ tripBtn];
 
 function openButtons() {
   buttons.classList.remove(hideButtonsClass);
@@ -184,7 +187,6 @@ function loadThemeButtons() {
 
 // Hotel Page
 const hotelCards = document.getElementById(hotelCardsSelector);
-let selectedHotel;
 
 function createHotelCards() {
   hotels.forEach((hotelData) => {

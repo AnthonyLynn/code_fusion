@@ -94,6 +94,7 @@ export default class GoogleMap {
         origin: start,
         destination: end,
         waypoints: waypoints,
+        //optimizeWaypointOrder: true,
         travelMode: google.maps.TravelMode.DRIVING,
       })
       .then((res) => {
